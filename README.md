@@ -1,6 +1,6 @@
 # 🌐 Web Content Extraction API 📄
 
-## 🔥 Votre passerelle unifiée vers l'extraction intelligente de contenu web 🔥
+## 🔥 Votre passerelle vers l'extraction intelligente de contenu web 🔥
 
 [![GitHub stars](https://img.shields.io/github/stars/simonpierreboucher0/web-content-api?style=social)](https://github.com/simonpierreboucher0/web-content-api/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,31 +12,15 @@
 ## ✨ Caractéristiques principales
 
 📄 **Extraction puissante** - Récupérez le contenu brut et traité des pages web  
-🔄 **Interface unifiée** - Une seule API pour différents moteurs d'extraction  
-🧩 **Normalisation des données** - Format standardisé quelle que soit la source  
+🧩 **Normalisation des données** - Format standardisé pour faciliter l'intégration  
 ⚡ **Haute performance** - Mise en cache intelligente des résultats  
 🛡️ **Robustesse intégrée** - Gestion avancée des erreurs et des timeouts  
 📊 **Logging détaillé** - Suivi complet des opérations d'extraction  
 🌍 **Support multilingue** - Extraction du contenu en plusieurs langues  
-🔌 **Failover automatique** - Bascule intelligente entre les fournisseurs  
 
 ---
 
-## 🤖 Moteurs d'extraction pris en charge
-
-### 🟣 Exa AI
-Extraction sophistiquée avec analyse sémantique avancée.
-
-| Fonctionnalité | Description | Avantage |
-|----------------|-------------|----------|
-| 📄 **Extraction de texte** | Récupération du contenu principal | Élimination du bruit et publicités |
-| 🖼️ **Récupération d'images** | Extraction des images pertinentes | Contenu visuel associé |
-| 🔗 **Analyse des liens** | Collecte des liens internes et externes | Cartographie complète du contenu |
-| 📋 **Métadonnées structurées** | Extraction de title, author, date... | Information contextuelle enrichie |
-| 📑 **Sous-pages intelligentes** | Exploration des pages liées pertinentes | Contenu connexe automatiquement détecté |
-| 📊 **Scores de pertinence** | Évaluation de sections importantes | Identification des passages clés |
-| 🔍 **Mise en évidence** | Extraction des passages significatifs | Points essentiels rapidement identifiés |
-| 📝 **Génération de résumés** | Synthèse automatique du contenu | Vue d'ensemble instantanée |
+## 🤖 Moteur d'extraction pris en charge
 
 ### 🟢 Tavily
 Extraction précise optimisée pour la récupération d'information structurée.
@@ -59,7 +43,7 @@ Extraction précise optimisée pour la récupération d'information structurée.
 ### 1️⃣ Cloner le dépôt
 ```bash
 git clone https://github.com/simonpierreboucher0/WEB-EXTRACTION.git
-cd web-content-api
+cd WEB-EXTRACTION
 ```
 
 ### 2️⃣ Installer les dépendances
@@ -67,14 +51,11 @@ cd web-content-api
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Configurer vos clés API
-Créez un fichier `.env` avec vos clés:
+### 3️⃣ Configurer votre clé API
+Créez un fichier `.env` avec votre clé:
 ```ini
 TAVILY_KEY=votre_clé_tavily
-EXA_KEY=votre_clé_exa
 ```
-
-> 💡 **Astuce**: Vous n'avez besoin de fournir que les clés pour les moteurs que vous allez utiliser!
 
 ---
 
@@ -82,65 +63,38 @@ EXA_KEY=votre_clé_exa
 
 ### ▶️ Démarrer le serveur
 ```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ```
 
 ### 🌐 Documentation interactive
 Accédez à l'interface Swagger pour tester l'API:
 ```
-http://localhost:8000/docs
+http://localhost:8001/docs
 ```
 
 ### 📄 Extraction simple avec Tavily
 ```bash
 curl -X 'POST' \
-  'http://localhost:8000/extract' \
+  'http://localhost:8001/extract' \
   -H 'Content-Type: application/json' \
   -d '{
     "urls": "https://en.wikipedia.org/wiki/Artificial_intelligence",
-    "engine": "tavily",
     "include_images": true,
     "extract_depth": "basic"
-  }'
-```
-
-### 📑 Extraction avancée avec Exa
-```bash
-curl -X 'POST' \
-  'http://localhost:8000/extract' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "urls": "https://en.wikipedia.org/wiki/Artificial_intelligence",
-    "engine": "exa",
-    "include_images": true,
-    "include_links": true
-  }'
-```
-
-### 🔄 Extraction automatique (meilleur moteur disponible)
-```bash
-curl -X 'POST' \
-  'http://localhost:8000/extract' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "urls": "https://en.wikipedia.org/wiki/Artificial_intelligence",
-    "engine": "auto",
-    "include_images": true
   }'
 ```
 
 ### 📚 Extraction de plusieurs URLs
 ```bash
 curl -X 'POST' \
-  'http://localhost:8000/extract' \
+  'http://localhost:8001/extract' \
   -H 'Content-Type: application/json' \
   -d '{
     "urls": [
       "https://en.wikipedia.org/wiki/Artificial_intelligence",
       "https://arxiv.org/abs/2307.06435"
     ],
-    "engine": "exa",
-    "include_links": true
+    "include_images": true
   }'
 ```
 
@@ -151,7 +105,6 @@ curl -X 'POST' \
 ```json
 {
   "urls": "https://example.com/page",            // 🔗 URL ou liste d'URLs (obligatoire)
-  "engine": "exa",                               // 🌐 Moteur d'extraction (exa, tavily, auto)
   "include_images": true,                        // 🖼️ Inclure les images
   "include_raw_content": false,                  // 📜 Inclure le contenu brut non traité
   "extract_depth": "advanced",                   // 🔍 Profondeur d'extraction (basic, advanced)
@@ -174,8 +127,8 @@ curl -X 'POST' \
       "title": "Titre de la page web",                 // 📝 Titre de la page
       "content": "Contenu principal extrait...",       // 📄 Contenu traité
       "raw_content": "HTML brut ou texte complet...",  // 📜 Contenu brut (si demandé)
-      "author": "Nom de l'auteur",                     // ✍️ Auteur si disponible
-      "published_date": "2024-01-15T14:30:00Z",        // 📅 Date de publication
+      "author": null,                                  // ✍️ Auteur (si disponible)
+      "published_date": null,                          // 📅 Date de publication (si disponible)
       "images": [                                       // 🖼️ Images extraites
         {
           "url": "https://example.com/image.jpg",      // 🔗 URL de l'image
@@ -184,25 +137,11 @@ curl -X 'POST' \
           "height": 600                                // 📐 Hauteur en pixels
         }
       ],
-      "links": [                                       // 🔗 Liens extraits
-        {
-          "url": "https://example.com/related",        // 🔗 URL du lien
-          "text": "Texte du lien",                     // 📝 Texte d'ancrage
-          "is_internal": true                          // 🏠 Lien interne ou externe
-        }
-      ],
-      "favicon": "https://example.com/favicon.ico",    // 🔖 Favicon du site
-      "subpages": [                                    // 📑 Sous-pages liées
-        {
-          "url": "https://example.com/subpage",        // 🔗 URL de la sous-page
-          "title": "Titre de la sous-page",            // 📝 Titre
-          "content": "Extrait de la sous-page..."      // 📄 Contenu
-        }
-      ]
+      "links": null                                    // 🔗 Liens extraits (si demandés)
     }
   ],
   "failed_urls": [],                                   // ❌ URLs qui ont échoué
-  "engine": "exa",                                     // 🌐 Moteur utilisé
+  "engine": "tavily",                                  // 🌐 Moteur utilisé
   "time_taken": 0.35,                                  // ⏱️ Temps d'exécution (secondes)
   "cached": false,                                     // 🔄 Résultat depuis le cache?
   "status": "ok",                                      // ✅ État de la requête
@@ -219,40 +158,13 @@ curl -X 'POST' \
 
 ## 💡 Cas d'utilisation avancés
 
-### 🔄 Failover automatique entre moteurs
-Si un moteur est indisponible, l'API bascule automatiquement vers le suivant:
-
-```python
-import requests
-
-def extract_with_failover(url, engines=["exa", "tavily"]):
-    for engine in engines:
-        try:
-            response = requests.post(
-                "http://localhost:8000/extract",
-                json={
-                    "urls": url,
-                    "engine": engine,
-                    "include_images": True
-                },
-                timeout=20
-            )
-            if response.status_code == 200:
-                return response.json()
-        except Exception as e:
-            print(f"Échec avec {engine}: {str(e)}")
-    return {"error": "Tous les moteurs ont échoué"}
-
-results = extract_with_failover("https://arxiv.org/abs/2307.06435")
-```
-
 ### 📑 Extraction parallèle de plusieurs URLs
 
 ```python
 import requests
 import concurrent.futures
 
-def batch_extract(urls, engine="auto"):
+def batch_extract(urls):
     # Découper en lots de 5 URLs
     batches = [urls[i:i+5] for i in range(0, len(urls), 5)]
     all_results = []
@@ -261,10 +173,9 @@ def batch_extract(urls, engine="auto"):
     def extract_batch(batch):
         try:
             response = requests.post(
-                "http://localhost:8000/extract",
+                "http://localhost:8001/extract",
                 json={
                     "urls": batch,
-                    "engine": engine,
                     "include_images": True,
                     "extract_depth": "basic"
                 },
@@ -299,63 +210,8 @@ news_sites = [
     "https://www.zdnet.com/topic/artificial-intelligence/"
 ]
 
-results, failures = batch_extract(news_sites, "exa")
+results, failures = batch_extract(news_sites)
 print(f"Extractions réussies: {len(results)}, Échecs: {len(failures)}")
-```
-
-### 📊 Comparaison d'extraction entre moteurs
-
-```python
-import requests
-import concurrent.futures
-
-def compare_extraction_engines(url):
-    engines = ["exa", "tavily"]
-    results = {}
-    
-    def extract_with_engine(engine):
-        try:
-            response = requests.post(
-                "http://localhost:8000/extract",
-                json={
-                    "urls": url, 
-                    "engine": engine,
-                    "include_images": True,
-                    "extract_depth": "advanced" if engine == "tavily" else "basic"
-                },
-                timeout=25
-            )
-            if response.status_code == 200:
-                return engine, response.json()
-            return engine, {"error": f"Status code: {response.status_code}"}
-        except Exception as e:
-            return engine, {"error": str(e)}
-    
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        for engine, result in executor.map(extract_with_engine, engines):
-            results[engine] = result
-    
-    return results
-
-comparison = compare_extraction_engines("https://en.wikipedia.org/wiki/Machine_learning")
-
-# Analyse des résultats
-for engine, data in comparison.items():
-    if "error" in data:
-        print(f"⚠️ {engine}: Erreur - {data['error']}")
-        continue
-        
-    print(f"🔍 {engine}: Extraction en {data['time_taken']:.2f}s")
-    
-    if data["results"]:
-        content_length = len(data["results"][0].get("content", ""))
-        image_count = len(data["results"][0].get("images", []))
-        print(f"  📄 Taille du contenu: {content_length} caractères")
-        print(f"  🖼️ Nombre d'images: {image_count}")
-        
-        if "links" in data["results"][0]:
-            link_count = len(data["results"][0]["links"])
-            print(f"  🔗 Nombre de liens: {link_count}")
 ```
 
 ### 📰 Extraction d'articles d'actualité
@@ -367,10 +223,9 @@ from datetime import datetime
 
 def extract_news_article(url):
     response = requests.post(
-        "http://localhost:8000/extract",
+        "http://localhost:8001/extract",
         json={
             "urls": url,
-            "engine": "exa",  # Exa est souvent meilleur pour les articles
             "include_images": True
         }
     )
@@ -389,8 +244,6 @@ def extract_news_article(url):
     formatted_article = {
         "title": article.get("title", "Untitled Article"),
         "url": article.get("url"),
-        "author": article.get("author", "Unknown Author"),
-        "published_date": article.get("published_date"),
         "content": article.get("content", "").strip(),
         "word_count": len(article.get("content", "").split()),
         "reading_time_minutes": round(len(article.get("content", "").split()) / 200),  # ~200 mots/minute
@@ -410,10 +263,10 @@ print(json.dumps(article, indent=2))
 
 ## 🧪 Tests de santé et surveillance
 
-L'API intègre un endpoint de santé complet pour surveiller l'état des services:
+L'API intègre un endpoint de santé complet pour surveiller l'état du service:
 
 ```bash
-curl -X GET http://localhost:8000/health
+curl -X GET http://localhost:8001/health
 ```
 
 Exemple de réponse:
@@ -427,7 +280,6 @@ Exemple de réponse:
   "hostname": "extraction-api-server",
   "cache_entries": 145,
   "api_statuses": {
-    "exa": "ok",
     "tavily": "ok"
   },
   "response_time": "0.0823s"
@@ -456,21 +308,19 @@ Le système met intelligemment en cache les résultats pour optimiser les perfor
 ```bash
 # Première requête (non mise en cache)
 curl -X 'POST' \
-  'http://localhost:8000/extract' \
+  'http://localhost:8001/extract' \
   -H 'Content-Type: application/json' \
   -d '{
     "urls": "https://en.wikipedia.org/wiki/Artificial_intelligence",
-    "engine": "tavily",
     "include_images": true
   }'
   
 # Requête identique (depuis le cache, beaucoup plus rapide)
 curl -X 'POST' \
-  'http://localhost:8000/extract' \
+  'http://localhost:8001/extract' \
   -H 'Content-Type: application/json' \
   -d '{
     "urls": "https://en.wikipedia.org/wiki/Artificial_intelligence",
-    "engine": "tavily",
     "include_images": true
   }'
 ```
@@ -481,37 +331,20 @@ Adaptez la profondeur d'extraction selon vos besoins:
 ```bash
 # Extraction basique (plus rapide)
 curl -X 'POST' \
-  'http://localhost:8000/extract' \
+  'http://localhost:8001/extract' \
   -H 'Content-Type: application/json' \
   -d '{
     "urls": "https://example.com/article",
-    "engine": "tavily",
     "extract_depth": "basic"
   }'
 
 # Extraction avancée (plus complète)
 curl -X 'POST' \
-  'http://localhost:8000/extract' \
+  'http://localhost:8001/extract' \
   -H 'Content-Type: application/json' \
   -d '{
     "urls": "https://example.com/article",
-    "engine": "tavily",
     "extract_depth": "advanced"
-  }'
-```
-
-### 🔗 Extraction de contenu avec liens et sous-pages
-Obtenez une analyse plus complète d'une page et de ses liens:
-
-```bash
-curl -X 'POST' \
-  'http://localhost:8000/extract' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "urls": "https://docs.python.org/3/tutorial/",
-    "engine": "exa",
-    "include_links": true,
-    "include_images": true
   }'
 ```
 
@@ -547,13 +380,6 @@ Ce projet est sous licence [MIT](LICENSE) - voir le fichier LICENSE pour plus de
 
 ## ❓ FAQ
 
-### 🔄 Quelle est la différence entre les moteurs d'extraction?
-- **Exa AI**: Meilleur pour l'extraction structurée et les métadonnées, avec support des sous-pages
-- **Tavily**: Performances supérieures pour la récupération de contenu brut et l'extraction profonde
-
-### 💰 Quel moteur est le plus économique?
-Les coûts varient selon l'utilisation, mais les deux services offrent des plans gratuits généreux pour commencer.
-
 ### 🚀 Comment optimiser les performances?
 Activez la mise en cache, limitez l'extraction aux données nécessaires (désactivez les images si non requises), et utilisez la profondeur d'extraction appropriée.
 
@@ -562,6 +388,12 @@ La plupart des sites modernes sont supportés, mais certains peuvent avoir des p
 
 ### ⚙️ Comment adapter l'API à mes besoins spécifiques?
 Le code source est conçu pour être facilement extensible - vous pouvez ajouter de nouveaux moteurs d'extraction ou personnaliser les paramètres existants.
+
+### 📱 Puis-je intégrer cette API dans des applications mobiles?
+Oui, l'API peut être appelée depuis n'importe quelle application capable d'effectuer des requêtes HTTP, y compris les applications mobiles.
+
+### 🔍 Quelles sont les limites d'extraction?
+Les limites dépendent principalement du plan de l'API Tavily que vous utilisez. Consultez leur documentation pour plus de détails sur les quotas et les limites.
 
 ---
 
@@ -576,7 +408,7 @@ Le code source est conçu pour être facilement extensible - vous pouvez ajouter
 </p>
 
 <p align="center">
-🔗 <a href="https://github.com/simonpierreboucher0/web-content-api">GitHub</a> | 
-🐛 <a href="https://github.com/simonpierreboucher0/web-content-api/issues">Signaler un problème</a> | 
-💡 <a href="https://github.com/simonpierreboucher0/web-content-api/discussions">Discussions</a>
+🔗 <a href="https://github.com/simonpierreboucher0/WEB-EXTRACTION">GitHub</a> | 
+🐛 <a href="https://github.com/simonpierreboucher0/WEB-EXTRACTION/issues">Signaler un problème</a> | 
+💡 <a href="https://github.com/simonpierreboucher0/WEB-EXTRACTION/discussions">Discussions</a>
 </p>
