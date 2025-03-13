@@ -58,7 +58,7 @@ Extraction précise optimisée pour la récupération d'information structurée.
 
 ### 1️⃣ Cloner le dépôt
 ```bash
-git clone https://github.com/simonpierreboucher0/web-content-api.git
+git clone https://github.com/simonpierreboucher0/WEB-EXTRACTION.git
 cd web-content-api
 ```
 
